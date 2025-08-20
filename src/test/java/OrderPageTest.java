@@ -2,8 +2,7 @@ import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+
 import static org.junit.Assert.*;
 
 @RunWith(Enclosed.class)
@@ -33,7 +32,7 @@ public class OrderPageTest {
             this.comment = comment;
         }
 
-        @Parameterized.Parameters
+        @Parameterized.Parameters(name = "Тестовые данные: {0} {1} {2} {3} {4} {5} {6} {7} {8}")
         public static Object[][] getOrder() {
             return new Object[][]{
                     {"Иван", "Иванов", "Проспект мира, 5", "Черкизовская", "+79998887766", "12.09.2025", "1", "black", "Спасибо"},
@@ -46,13 +45,13 @@ public class OrderPageTest {
             mainPage.openPage();
             mainPage.clickUpperButton();
 
-            // Первая форма заказа Шаг1
-            orderPage.fillStep1Form(name, lastName, address, metro, phone);
+        // Первая форма заказа Шаг1
+            orderPage.fillStepOneForm(name, lastName, address, metro, phone);
 
-            //Вторая форма заказа Шаг2
-            orderPage.fillStep2Form(date, duration, color, comment);
+        //Вторая форма заказа Шаг2
+            orderPage.fillStepTwoForm(date, duration, color, comment);
 
-            // Проверка, что заказ принят
+        // Проверка, что заказ принят
             assertTrue("Не появляется окно с информацией об успешном оформлении заказа", driver.findElement(orderPage.getOrderSuccess()).isDisplayed());
         }
     }
@@ -61,22 +60,26 @@ public class OrderPageTest {
         public void upperButtonWorksFineTest() {
             mainPage.openPage();
             mainPage.clickUpperButton();
-            WebElement headerText = driver.findElement(By.xpath("//div[text()='Для кого самокат']"));
 
-            String expected = "Для кого самокат"; // ожидаемое сообщение о несовпадении паролей
-            String actual = headerText.getText(); // фактическое сообщение
-            assertEquals("Верхняя кнопка заказать не ведет на страницу оформления заказа", expected, actual);
+            // ожидаемый заголовок
+            String expected = "Для кого самокат";
+            // фактический
+            String actual = orderPage.getHeaderText();
+            // проверка соответствия
+            assertEquals("Верхняя кнопка заказать, не ведет на страницу оформления заказа", expected, actual);
         }
 
         @Test
         public void lowerButtonWorksFineTest() {
             mainPage.openPage();
             mainPage.clickLowerButton();
-            WebElement headerText = driver.findElement(By.xpath("//div[text()='Для кого самокат']"));
 
-            String expected = "Для кого самокат"; // ожидаемое сообщение о несовпадении паролей
-            String actual = headerText.getText(); // фактическое сообщение
-            assertEquals("Верхняя кнопка заказать не ведет на страницу оформления заказа", expected, actual);
+            // ожидаемый заголовок
+            String expected = "Для кого самокат";
+            // фактический
+            String actual = orderPage.getHeaderText();
+            // проверка соответствия
+            assertEquals("Верхняя кнопка заказать, не ведет на страницу оформления заказа", expected, actual);
         }
     }
 }

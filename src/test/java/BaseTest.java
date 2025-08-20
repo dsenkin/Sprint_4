@@ -4,8 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import qa_scooter_yandex_praktikum.POM.MainPage;
-import qa_scooter_yandex_praktikum.POM.OrderPage;
+import ru.praktikumservices.qascooter.pageobjects.MainPage;
+import ru.praktikumservices.qascooter.pageobjects.OrderPage;
 
 public class BaseTest {
     WebDriver driver;
@@ -32,5 +32,4 @@ public class BaseTest {
     public void tearDown() {
         driver.quit();
     };
-
 }

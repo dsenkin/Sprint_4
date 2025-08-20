@@ -1,7 +1,8 @@
-package qa_scooter_yandex_praktikum.POM;
+package ru.praktikumservices.qascooter.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -35,8 +36,8 @@ public class OrderPage {
 
     // Локатор поля Продолжительности аренды
     private By inputFieldDuration = By.xpath(".//div[contains(@class, 'Dropdown-placeholder')]");
-    private By inputFieldDuration1 = By.xpath(".//div[contains(@class, 'Dropdown-option') and text()='сутки']");
-    private By inputFieldDuration5 = By.xpath(".//div[contains(@class, 'Dropdown-option') and text()='пятеро суток']");
+    private By inputFieldDurationOne = By.xpath(".//div[contains(@class, 'Dropdown-option') and text()='сутки']");
+    private By inputFieldDurationFive = By.xpath(".//div[contains(@class, 'Dropdown-option') and text()='пятеро суток']");
 
     // Локатор чекбокса Выбора цвета самоката
     private By inputFieldColorBlack = By.xpath(".//input[@id='black']");
@@ -55,6 +56,12 @@ public class OrderPage {
     private By orderSuccess = By.xpath(".//div[text()='Заказ оформлен']/div[contains(text(), 'Номер заказа:')]");
     public By getOrderSuccess() {
         return orderSuccess;
+    }
+
+    // Локатор заголовка формы оформления заказа на шаге 1
+    private By orderFormHeader = By.xpath("//div[text()='Для кого самокат']");
+    public String getHeaderText() {
+        return driver.findElement(orderFormHeader).getText();
     }
 
     // Конструктор страницы
@@ -85,7 +92,7 @@ public class OrderPage {
     }
 
     // Заполнение первой формы заказа Шаг1
-    public void fillStep1Form (String name, String lastName, String address, String metro, String phone) {
+    public void fillStepOneForm(String name, String lastName, String address, String metro, String phone) {
         // Поле Имя
         inputField(inputFieldName, name);
 
@@ -108,7 +115,7 @@ public class OrderPage {
     }
 
     // Заполнение второй формы заказа Шаг2
-    public void fillStep2Form (String date, String duration, String color, String comment) {
+    public void fillStepTwoForm(String date, String duration, String color, String comment) {
         // Поле Дата
         inputField(inputFieldDate, date);
         inputField(inputFieldDate, Keys.ENTER);
@@ -117,10 +124,10 @@ public class OrderPage {
         clickLocator(inputFieldDuration);
         switch (duration) {
             case "1":
-                clickLocator(inputFieldDuration1);
+                clickLocator(inputFieldDurationOne);
                 break;
             case "5":
-                clickLocator(inputFieldDuration5);
+                clickLocator(inputFieldDurationFive);
                 break;
         }
 
