@@ -25,15 +25,18 @@ public class MainPage {
     private By statusField = By.cssSelector("input[placeholder='Введите номер заказа']");
     // Локатор картинки об ошибке номера заказа
     public By errorStatusOrderImage = By.cssSelector("img[alt='Not found']");
+    // Локатор кнопки Cookie
+    private By cookieButton = By.xpath(".//button[text() = 'да все привыкли']");
 
     // Конструктор страницы
     public MainPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    // Открыть страницу
+    // Открыть страницу и согласиться на куки
     public void openPage() {
         driver.get(URL);
+        if (driver.findElement(cookieButton).isDisplayed())  clickLocator(cookieButton);
     }
 
     // Кликнуть по объекту с данным локатором
@@ -93,7 +96,7 @@ public class MainPage {
             // Подождали пока ответ прогрузится
             Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(5));
             int finalI = i;
-            wait.until(webDriver -> ( allAnswersLinks.get(finalI).findElement(By.xpath("./child::p"))).isDisplayed()); //(By.xpath("//div[@class='accordion__panel']/p"))).isDisplayed());
+            wait.until(webDriver -> ( allAnswersLinks.get(finalI).findElement(By.xpath("./child::p"))).isDisplayed());
             // Добавляем ответ в список
             accordion.add(allAnswersLinks.get(i).findElement(By.xpath("./child::p")).getText());
             i++;
@@ -101,5 +104,4 @@ public class MainPage {
         // Возвращаем список ответов отображенных на сайте
         return accordion;
     }
-
 }

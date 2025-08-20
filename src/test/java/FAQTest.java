@@ -2,6 +2,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FAQTest extends BaseTest {
 
@@ -26,12 +27,12 @@ public class FAQTest extends BaseTest {
             int i = 0;
             //Проверяем ОР и ФР
             for (String faqAnswer : faqAnswers) {
-                assertEquals("Неверный текст ответа " + (i+1), faqAnswersTD.get(i), faqAnswer); // добавили сообщение об ошибке
+                assertEquals("FAQ: Неверный текст ответа " + (i+1), faqAnswersTD.get(i), faqAnswer); // добавили сообщение об ошибке
                 i++;
             }
         }
         else {
-            System.out.println("Количество тестовых данных не совпадает с фактическими");
+            assertTrue("FAQ: Количество тестовых данных не совпадает с фактическими", false);
         }
     }
 }
